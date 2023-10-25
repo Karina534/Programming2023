@@ -22,6 +22,9 @@ def calculate():
     except ZeroDivisionError:
         messagebox.showinfo('Ты лох', "На ноль делить нельзя!")
         calc.insert(0, 0)
+    except SyntaxError:
+        messagebox.showinfo('Ты лох', "Ну что за чушь ты пишешь!")
+        calc.insert(0, 0)
 
 def add_num(num):
     value = calc.get() + str(num)
@@ -29,7 +32,11 @@ def add_num(num):
     calc.insert(0, value)
 def add_operation(operaation):
     value = calc.get()
-    if value[-1] in '+-/***!':
+    if value[-1] in '+-/*!':
+        value = value[:-1]
+    calc.delete(0, tk.END)
+    calc.insert(0, value + operaation)
+    if value[-1] in '**':
         value = value[:-1]
     calc.delete(0, tk.END)
     calc.insert(0, value + operaation)
