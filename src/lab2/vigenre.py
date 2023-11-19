@@ -20,23 +20,24 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     ciphertext = ""
     if keyword.isalpha() == False:
         return 'Your key doesnt a word'
-    m = 0 if plaintext.islower() else 1
-    s = plaintext.upper()
-    key = keyword.upper()
-    k = generateKey(s, key)
+    k = generateKey(plaintext, keyword)
     encrypt_text = []
-    for i in range(len(s)):
-        if s[i].isalpha():
-            x = (ord(s[i]) + ord(k[i])) % 26
-            x += ord('A')
-            encrypt_text.append(chr(x))
+    for i in range(len(plaintext)):
+        if plaintext[i].isalpha():
+            if plaintext[i].isupper():
+                t = ord('A')
+                x = (ord(plaintext[i]) + ord(k[i])) % 26
+                x += t
+                encrypt_text.append(chr(x))
+            else:
+                t = ord('a')
+                x = (ord(plaintext[i]) + ord(k[i])) % 97
+                x += t
+                encrypt_text.append(chr(x))
         else:
-            encrypt_text.append(s[i])
+            encrypt_text.append(plaintext[i])
     ciphertext = "".join(encrypt_text)
-    if m == 0:
-        return ciphertext.lower()
-    else:
-        return ciphertext
+    return ciphertext
 
 
 def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
@@ -52,20 +53,21 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     plaintext = ""
     if keyword.isalpha() == False:
         return 'Your key doesnt a word'
-    m = 0 if ciphertext.islower() else 1
-    ci = ciphertext.upper()
-    key = keyword.upper()
-    k = generateKey(ci, key)
+    k = generateKey(ciphertext, keyword)
     orig_text = []
-    for i in range(len(ci)):
-        if ci[i].isalpha():
-            x = (ord(ci[i]) - ord(k[i]) + 26) % 26
-            x += ord('A')
-            orig_text.append(chr(x))
+    for i in range(len(ciphertext)):
+        if ciphertext[i].isalpha():
+            if ciphertext[i].isupper():
+                t = ord('A')
+                x = (ord(ciphertext[i]) - ord(k[i]) + 26) % 26
+                x += t
+                orig_text.append(chr(x))
+            else:
+                t = ord('a')
+                x = (ord(ciphertext[i]) - ord(k[i]) + 26) % 26
+                x += t
+                orig_text.append(chr(x))
         else:
-            orig_text.append(ci[i])
+            orig_text.append(ciphertext[i])
     plaintext = "".join(orig_text)
-    if m == 0:
-        return plaintext.lower()
-    else:
-        return plaintext
+    return plaintext

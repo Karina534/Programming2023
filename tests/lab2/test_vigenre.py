@@ -1,4 +1,6 @@
+import string
 import unittest
+from random import randint, random, choice
 from src.lab2.vigenre import encrypt_vigenere, decrypt_vigenere
 class vigenre_test(unittest.TestCase):
     def test_encrypt(self):
@@ -16,3 +18,11 @@ class vigenre_test(unittest.TestCase):
         self.assertEqual(decrypt_vigenere('24', 'LEMON'), '24')
         self.assertEqual(decrypt_vigenere('№:', 'LEMON'), '№:')
         self.assertEqual(decrypt_vigenere('python', '4'), 'Your key doesnt a word')
+
+    def test_randomized(self):
+        kwlen = randint(4, 24)
+        keyword = ''.join(choice(string.ascii_letters) for _ in range(kwlen))
+        plaintext = ''.join(choice(string.ascii_letters + ' -,') for _ in range(64))
+        ciphertext = encrypt_vigenere(plaintext, keyword)
+        fff = decrypt_vigenere(ciphertext, keyword)
+        self.assertEqual(plaintext, decrypt_vigenere(ciphertext, keyword))
