@@ -25,14 +25,16 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     for i in range(len(plaintext)):
         if plaintext[i].isalpha():
             if plaintext[i].isupper():
-                t = ord('A')
-                x = (ord(plaintext[i]) + ord(k[i])) % 26
-                x += t
+                x = ord(plaintext[i]) + (ord(k[i].lower()) - ord('a'))
+                if x > ord('Z'):
+                    x -= (ord('Z') - ord('A') + 1)
+
                 encrypt_text.append(chr(x))
             else:
-                t = ord('a')
-                x = (ord(plaintext[i]) + ord(k[i])) % 97
-                x += t
+                x = ord(plaintext[i]) + (ord(k[i].lower()) - ord('a'))
+                if x > ord('z'):
+                    x -= (ord('z') - ord('a') + 1)
+
                 encrypt_text.append(chr(x))
         else:
             encrypt_text.append(plaintext[i])
@@ -59,14 +61,17 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
         if ciphertext[i].isalpha():
             if ciphertext[i].isupper():
                 t = ord('A')
-                x = (ord(ciphertext[i]) - ord(k[i]) + 26) % 26
-                x += t
-                orig_text.append(chr(x))
+                x = ord(ciphertext[i]) - (ord(k[i].lower()) - ord('a'))
+                if x < t:
+                    x += (ord('Z') - ord('A') + 1)
+
             else:
                 t = ord('a')
-                x = (ord(ciphertext[i]) - ord(k[i]) + 26) % 26
-                x += t
-                orig_text.append(chr(x))
+                x = ord(ciphertext[i]) - (ord(k[i].lower()) - ord('a'))
+                if x < t:
+                    x += (ord('z') - ord('a') + 1)
+
+            orig_text.append(chr(x))
         else:
             orig_text.append(ciphertext[i])
     plaintext = "".join(orig_text)
