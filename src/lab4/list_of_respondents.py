@@ -41,7 +41,7 @@ class Groups:
     def get_str_mas(self, mass: list):
         result = []
         for el in mass:
-            result.append(f'{el.name}, {el.age} ;')
+            result.append(f'{el.name}, {el.age}; ')
         return ' '.join(result)
 
     def __str__(self):

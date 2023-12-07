@@ -60,9 +60,11 @@ def recomendation(user_watched_films_id: list):
         if films[el].veuvers > most_wuwers:
             most_wuwers = films[el].veuvers
             most_popular_film_name = films[el].name
+    if most_popular_film_name == -1:
+        return 'We can`t recomend you a film'
     return most_popular_film_name
 
 
-print(recomendation([1, 3]))
+print(recomendation([6, 7]))
 
 
