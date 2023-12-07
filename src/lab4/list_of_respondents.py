@@ -1,3 +1,4 @@
+# №2
 class Respondent:
     def __init__(self, name=None, age=None):
         self.name = name
