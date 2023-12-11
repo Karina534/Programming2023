@@ -1,14 +1,15 @@
-import pathlib
-import typing as tp
-import numpy as np
 import multiprocessing
+import pathlib
 import time
+import typing as tp
+
+import numpy as np
 
 T = tp.TypeVar("T")
 
 
 def read_sudoku(path: tp.Union[str, pathlib.Path]) -> tp.List[tp.List[str]]:
-    """ Прочитать Судоку из указанного файла """
+    """Прочитать Судоку из указанного файла"""
     path = pathlib.Path(path)
     with path.open() as f:
         puzzle = f.read()
@@ -22,15 +23,11 @@ def create_grid(puzzle: str) -> tp.List[tp.List[str]]:
 
 
 def display(grid: tp.List[tp.List[str]]) -> None:
-    """Вывод Судоку """
+    """Вывод Судоку"""
     width = 2
     line = "+".join(["-" * (width * 3)] * 3)
     for row in range(9):
-        print(
-            "".join(
-                grid[row][col].center(width) + ("|" if str(col) in "25" else "") for col in range(9)
-            )
-        )
+        print("".join(grid[row][col].center(width) + ("|" if str(col) in "25" else "") for col in range(9)))
         if str(row) in "25":
             print(line)
     print()
@@ -52,10 +49,10 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     """
     result = []
     if n > len(values):
-        return None
+        return [[]]
     else:
         for i in range(0, len(values), n):
-            result.append(values[i:i + n])
+            result.append(values[i : i + n])
     return result
 
 
@@ -140,7 +137,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     """
     for i in range(len(grid)):
         for j in range(len(grid[i])):
-            if grid[i][j] == '.':
+            if grid[i][j] == ".":
                 return (i, j)
     return None
 
@@ -175,7 +172,7 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     результат:
         tp.Optional[tp.List[tp.List[str]] - Двойной массив со строками - решенный Судоку
 
-    Решение пазла, заданного в grid """
+    Решение пазла, заданного в grid"""
     """ Как решать Судоку?
         1. Найти свободную позицию
         2. Найти все возможные значения, которые могут находиться на этой позиции
@@ -197,7 +194,7 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
             solution = solve(grid)
             if solution:
                 return solution
-            grid[row][col] = '.'
+            grid[row][col] = "."
     return None
 
 
@@ -208,7 +205,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     результат:
         bool - True если решение правильное, False если решение не правильное
 
-    Если решение solution верно, то вернуть True, в противном случае False """
+    Если решение solution верно, то вернуть True, в противном случае False"""
     # TODO: Add doctests with bad puzzles
     for i in range(len(solution)):
         for j in range(len(solution[i])):
@@ -247,14 +244,15 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    grid = [['.' for _ in range(9)] for _ in range(9)]
+    grid = [["." for _ in range(9)] for _ in range(9)]
     solve(grid)
 
     position = [(i, j) for i in range(9) for j in range(9)]
     np.random.shuffle(position)
-    for i, j in position[:len(grid) * len(grid[0]) - N]:
-        grid[i][j] = '.'
+    for i, j in position[: len(grid) * len(grid[0]) - N]:
+        grid[i][j] = "."
     return grid
+
 
 def run_solve(filename: str) -> None:
     grid = read_sudoku(filename)
@@ -262,6 +260,7 @@ def run_solve(filename: str) -> None:
     solve(grid)
     end = time.time()
     print(f"{filename}: {end-start}")
+
 
 if __name__ == "__main__":
     for fname in ["puzzle1.txt", "puzzle2.txt", "puzzle3.txt"]:
