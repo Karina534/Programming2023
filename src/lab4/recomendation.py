@@ -45,8 +45,7 @@ def recomendation(user_watched_films_id: list):
                 if film_d in user_f.watched_films:
                     count += 1
 
-            if count >= (
-                    user_f.ln() // 2):  # Если больше половины просмотров совпадает, то добавляем зрителей к id фильму
+            if count >= (user_f.ln() // 2):  # Если больше половины просмотров совпадает, то добавляем зрителей к id фильму
                 for film_d2 in list_of_film:
                     if film_d2 not in user_f.watched_films:
                         films[film_d2].add_veuver()
