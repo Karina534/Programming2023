@@ -52,7 +52,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     """
     result = []
     if n > len(values):
-        return None
+        return [[]]
     else:
         for i in range(0, len(values), n):
             result.append(values[i:i + n])
