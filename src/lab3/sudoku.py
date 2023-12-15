@@ -207,13 +207,19 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
 
     Если решение solution верно, то вернуть True, в противном случае False"""
     # TODO: Add doctests with bad puzzles
-    for i in range(len(solution)):
-        for j in range(len(solution[i])):
-            row = get_row(solution, (i, j))
-            col = get_col(solution, (i, j))
-            block = get_block(solution, (i, j))
-            if row.count(solution[i][j]) > 1 and col.count(solution[i][j]) > 1 and block.count(solution[i][j]) > 1:
-                return False
+    for row in solution:
+        if len(set(row)) != 9 or '.' in row:
+            return False
+
+    for col in range(9):
+        col_values = [solution[row][col] for row in range(9)]
+        if len(set(col_values)) != 9 or '.' in col_values:
+            return False
+
+    for block in range(0, 9, 3):
+        block_values = [solution[row][col] for row in range(block, block + 3) for col in range(block, block + 3)]
+        if len(set(block_values)) != 9 or '.' in block_values:
+            return False
     return True
 
 
