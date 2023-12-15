@@ -145,20 +145,6 @@ class SudokuTestCase(unittest.TestCase):
         actual_solution = solve(grid)
         self.assertEqual(expected_solution, actual_solution)
 
-        grid = [
-            ["6", "6", "1", "1", "1", "5", "8", "3", "7"],
-            ["3", "5", "7", "8", "2", "6", "1", "4", "9"],
-            ["1", "4", "8", "9", "3", ".", ".", "2", "6"],
-            ["6", "3", "9", "5", "1", "2", "4", "7", "8"],
-            ["5", ".", "1", "7", "6", ".", "3", ".", "2"],
-            ["4", "7", "2", "3", ".", "8", "6", "1", "5"],
-            ["9", "6", "4", "2", "8", "3", "7", "5", "1"],
-            ["8", "1", ".", "4", "7", "9", "2", "6", "3"],
-            ["7", "2", ".", "6", "5", "1", "9", "8", "."],
-        ]
-        actual_solution = solve(grid)
-        self.assertEqual(expected_solution, actual_solution)
-
     def test_check_solution(self):
         good_solution = [
             ["5", "3", "4", "6", "7", "8", "9", "1", "2"],
