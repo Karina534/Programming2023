@@ -223,7 +223,6 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
         block_values = [solution[row][col] for row in range(block, block+3) for col in range(block, block+3)]
         if len(set(block_values)) != 9 or '.' in block_values:
             return False
-
     return True
 
 
