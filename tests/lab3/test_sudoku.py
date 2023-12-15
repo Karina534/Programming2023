@@ -156,6 +156,7 @@ class SudokuTestCase(unittest.TestCase):
             ["8", "1", ".", "4", "7", "9", "2", "6", "3"],
             ["7", "2", ".", "6", "5", "1", "9", "8", "."],
         ]
+
         actual_solution = solve(grid)
         self.assertEqual(expected_solution, actual_solution)
 
