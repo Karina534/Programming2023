@@ -59,4 +59,3 @@ with open('respondents.txt', encoding="utf-8") as f:
     print(groups)
 f.close()
 
-
