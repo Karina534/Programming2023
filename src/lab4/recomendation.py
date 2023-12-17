@@ -63,6 +63,5 @@ def recomendation(user_watched_films_id: list):
         return "We can`t recomend you a film"
     return most_popular_film_name
 
-
 print(recomendation([6, 7]))
 

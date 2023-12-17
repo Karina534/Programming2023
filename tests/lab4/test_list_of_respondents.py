@@ -15,6 +15,7 @@ class RespondentsTestCase(unittest.TestCase):
         group.sorting()
         self.assertTrue(group.respondents_0_18, (('Po', 3), ('Li', 5)))
     def test_get_str_mas(self):
+
         group = Groups()
         group.add_respondent('Li', 5)
         group.add_respondent('Po', 3)

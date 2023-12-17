@@ -57,5 +57,6 @@ with open('respondents.txt', encoding="utf-8") as f:
         groups.add_respondent(name, int(age))
     groups.sorting()
     print(groups)
+
 f.close()
 
