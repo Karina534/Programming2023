@@ -255,7 +255,7 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     True
     """
 
-    grid = [['.' for _ in range(9)] for _ in range(9)
+    grid = [['.' for _ in range(9)] for _ in range(9)]
     solve(grid)
 
     position = [(i, j) for i in range(9) for j in range(9)]
