@@ -21,15 +21,15 @@ class Films:
         self.veuvers += 1
 
     def __str__(self):
-        return f'id:{self.film_id}, name:{self.name}, w:{self.veuvers}'
+        return f"id:{self.film_id}, name:{self.name}, w:{self.veuvers}"
 
 
 def recomendation(user_watched_films_id: list):
     # list of films
     films = {}
-    with open('all_films.txt') as p:
+    with open("all_films.txt") as p:
         for line in p:
-            film_id, name = line.strip().split(',')
+            film_id, name = line.strip().split(",")
             film = Films(int(film_id), name)
             films[int(film_id)] = film
     p.close()
@@ -37,21 +37,23 @@ def recomendation(user_watched_films_id: list):
     user_f = User()
     user_f.watch(user_watched_films_id)  # list of int films
 
-    with open('users_history.txt') as f:
+    with open("users_history.txt") as f:
         for stroks in f:
-            list_of_film = set(list(map(int, stroks.strip().split(','))))  # list_of int films
+            list_of_film = set(list(map(int, stroks.strip().split(","))))  # list_of int films
             count = 0
             for film_d in list_of_film:
                 if film_d in user_f.watched_films:
                     count += 1
 
-            if count >= (user_f.ln() // 2):  # Если больше половины просмотров совпадает, то добавляем зрителей к id фильму
+            if count >= (
+                user_f.ln() // 2
+            ):  # Если больше половины просмотров совпадает, то добавляем зрителей к id фильму
                 for film_d2 in list_of_film:
                     if film_d2 not in user_f.watched_films:
                         films[film_d2].add_veuver()
     f.close()
 
-    most_popular_film_name = -1  # name of film with biggest weuwers
+    most_popular_film_name = ''  # name of film with biggest weuwers
     most_wuwers = 0  # count of weuwers, biggest
 
     # Ищем фильм с самыми большими просмотрами
@@ -59,11 +61,10 @@ def recomendation(user_watched_films_id: list):
         if films[el].veuvers > most_wuwers:
             most_wuwers = films[el].veuvers
             most_popular_film_name = films[el].name
-    if most_popular_film_name == -1:
-        return 'We can`t recomend you a film'
+    if most_popular_film_name == '':
+        return "We can`t recomend you a film"
     return most_popular_film_name
 
 
 print(recomendation([6, 7]))
 #
-
