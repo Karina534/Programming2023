@@ -65,5 +65,4 @@ def recomendation(user_watched_films_id: list):
 
 
 print(recomendation([6, 7]))
-#
 

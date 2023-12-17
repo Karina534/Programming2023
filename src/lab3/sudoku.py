@@ -1,14 +1,18 @@
+import multiprocessing
 import pathlib
+import time
 import typing as tp
 import numpy as np
 import multiprocessing
 import time
 
+import numpy as np
+
 T = tp.TypeVar("T")
 
 
 def read_sudoku(path: tp.Union[str, pathlib.Path]) -> tp.List[tp.List[str]]:
-    """ Прочитать Судоку из указанного файла """
+    """Прочитать Судоку из указанного файла"""
     path = pathlib.Path(path)
     with path.open() as f:
         puzzle = f.read()
@@ -22,7 +26,7 @@ def create_grid(puzzle: str) -> tp.List[tp.List[str]]:
 
 
 def display(grid: tp.List[tp.List[str]]) -> None:
-    """Вывод Судоку """
+    """Вывод Судоку"""
     width = 2
     line = "+".join(["-" * (width * 3)] * 3)
     for row in range(9):
@@ -205,6 +209,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
         bool - True если решение правильное, False если решение не правильное
 
     Если решение solution верно, то вернуть True, в противном случае False """
+    
     # TODO: Add doctests with bad puzzles
     for row in solution:
         if len(set(row)) != 9 or '.' in row:
@@ -249,11 +254,13 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    grid = [['.' for _ in range(9)] for _ in range(9)]
+
+    grid = [['.' for _ in range(9)] for _ in range(9)
     solve(grid)
 
     position = [(i, j) for i in range(9) for j in range(9)]
     np.random.shuffle(position)
+
     for i, j in position[:len(grid) * len(grid[0]) - N]:
         grid[i][j] = '.'
     return grid
