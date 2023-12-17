@@ -172,7 +172,6 @@ class SudokuTestCase(unittest.TestCase):
         ]
         self.assertFalse(check_solution(not_solved))
 
-
     def test_generate_sudoku(self):
         grid = generate_sudoku(40)
         expected_unknown = 41

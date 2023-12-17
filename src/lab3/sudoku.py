@@ -2,6 +2,9 @@ import multiprocessing
 import pathlib
 import time
 import typing as tp
+import numpy as np
+import multiprocessing
+import time
 
 import numpy as np
 
@@ -52,7 +55,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
         return [[]]
     else:
         for i in range(0, len(values), n):
-            result.append(values[i : i + n])
+            result.append(values[i:i + n])
     return result
 
 
@@ -137,7 +140,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     """
     for i in range(len(grid)):
         for j in range(len(grid[i])):
-            if grid[i][j] == ".":
+            if grid[i][j] == '.':
                 return (i, j)
     return None
 
@@ -172,7 +175,7 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     результат:
         tp.Optional[tp.List[tp.List[str]] - Двойной массив со строками - решенный Судоку
 
-    Решение пазла, заданного в grid"""
+    Решение пазла, заданного в grid """
     """ Как решать Судоку?
         1. Найти свободную позицию
         2. Найти все возможные значения, которые могут находиться на этой позиции
@@ -194,7 +197,7 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
             solution = solve(grid)
             if solution:
                 return solution
-            grid[row][col] = "."
+            grid[row][col] = '.'
     return None
 
 
@@ -205,7 +208,8 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     результат:
         bool - True если решение правильное, False если решение не правильное
 
-    Если решение solution верно, то вернуть True, в противном случае False"""
+    Если решение solution верно, то вернуть True, в противном случае False """
+
     # TODO: Add doctests with bad puzzles
     for row in solution:
         if len(set(row)) != 9 or '.' in row:
@@ -217,7 +221,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
             return False
 
     for block in range(0, 9, 3):
-        block_values = [solution[row][col] for row in range(block, block + 3) for col in range(block, block + 3)]
+        block_values = [solution[row][col] for row in range(block, block+3) for col in range(block, block+3)]
         if len(set(block_values)) != 9 or '.' in block_values:
             return False
     return True
@@ -250,16 +254,16 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    grid = [["." for _ in range(9)] for _ in range(9)]
 
+    grid = [['.' for _ in range(9)] for _ in range(9)
     solve(grid)
 
     position = [(i, j) for i in range(9) for j in range(9)]
     np.random.shuffle(position)
-    for i, j in position[: len(grid) * len(grid[0]) - N]:
-        grid[i][j] = "."
-    return grid
 
+    for i, j in position[:len(grid) * len(grid[0]) - N]:
+        grid[i][j] = '.'
+    return grid
 
 def run_solve(filename: str) -> None:
     grid = read_sudoku(filename)
@@ -267,7 +271,6 @@ def run_solve(filename: str) -> None:
     solve(grid)
     end = time.time()
     print(f"{filename}: {end-start}")
-
 
 if __name__ == "__main__":
     for fname in ["puzzle1.txt", "puzzle2.txt", "puzzle3.txt"]:

@@ -58,5 +58,4 @@ with open('respondents.txt', encoding="utf-8") as f:
     groups.sorting()
     print(groups)
 f.close()
-#
 
