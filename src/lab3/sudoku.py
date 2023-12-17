@@ -209,7 +209,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
         bool - True если решение правильное, False если решение не правильное
 
     Если решение solution верно, то вернуть True, в противном случае False """
-    
+
     # TODO: Add doctests with bad puzzles
     for row in solution:
         if len(set(row)) != 9 or '.' in row:
